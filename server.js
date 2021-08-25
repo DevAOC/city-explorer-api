@@ -10,12 +10,11 @@ app.use(cors());
 const PORT = process.env.PORT || 3001;
 
 app.get('/weather', (request, response) => {
-  const cityData = weather.find((element) => element.city_name === request.query.searchQuery);
+  const cityData = weather.find((element) => element.lat === request.query.lat && element.lon === request.query.lon);
   if (cityData) {
     const forcasts = cityData.data.map((day) => new Forcast(day));
     response.send(forcasts);
-    console.log(forcasts);
-  } else if (cityData.city_name !== request.query.searchQuery) {
+  } else if (cityData.lat !== request.query.lat || cityData.lon !== request.query.lon) {
     response.status('404').send('No weather for this location');
   } else {
     response.status('500').send('internal server error');
