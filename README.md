@@ -39,3 +39,5 @@ Start time: 5 pm
 Finish time: 7:45 pm
 
 Actual time needed to complete: 2:45 (breaks and such. The real end time was later)
+
+## Lab 08
