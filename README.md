@@ -30,12 +30,12 @@ Node.js, express
 
 ### Time Estimates
 
-Name of feature:
+Name of feature: Server
 
-Estimate of time needed to complete:
+Estimate of time needed to complete: 3 hours
 
-Start time:
+Start time: 5 pm
 
-Finish time:
+Finish time: 7:45 pm
 
-Actual time needed to complete:
+Actual time needed to complete: 2:45 (breaks and such. The real end time was later)
