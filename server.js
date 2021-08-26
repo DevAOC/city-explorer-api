@@ -62,6 +62,5 @@ class Movie {
     // this.averageVotes = movie.average_votes;
     // this.totalVotes = movie.total_votes;
     this.popularity = movie.popularity;
-    this.releasedOn = movie.released_on;
   }
 }
