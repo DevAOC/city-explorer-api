@@ -41,3 +41,25 @@ Finish time: 7:45 pm
 Actual time needed to complete: 2:45 (breaks and such. The real end time was later)
 
 ## Lab 08
+
+### Time Estimates
+
+Name of feature: Weather API
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 4:45 pm
+
+Finish time: 6:45 pm
+
+Actual time needed to complete: 2 hours
+
+Name of feature: Movie API
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 7:30 pm
+
+Finish time: 9:15 pm
+
+Actual time needed to complete: 1 hour 45 mins
