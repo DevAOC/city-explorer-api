@@ -31,10 +31,10 @@ app.get('/movies', async (request, response) => {
   if (movieData) {
     const movies = movieData.results.map((movie) => new Movie(movie));
     response.status(200).send(movies);
-  } else if (movieData.title === null) {
-    response.status(404).send('No weather for this location');
+  } else if (movieData === undefined) {
+    response.status(404).send('No movies for this location');
   } else {
-    response.status(500).send('internal server error');
+    response.status(500).send('Internal server error');
   }
 });
 
