@@ -1,5 +1,4 @@
 const axios = require('axios');
-// const { request, response } = require('express');
 
 const weather = async (request, response) => {
   const weatherResp = await axios.get(
