@@ -6,23 +6,35 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 
-// const weather = require('./data.weather.json');
-
 const PORT = process.env.PORT || 3001;
 
 app.get('/weather', async (request, response) => {
-  //added this and removed .json data
   const weatherResp = await axios.get(
-    `http://api.weatherbit.io/v2.0/forecast/daily/?lat=${request.query.lat}&lon=${request.query.lon}&key=${process.env.WEATHER_API_KEY}&days=5&land=en`
+    `http://api.weatherbit.io/v2.0/forecast/daily/?lat=${request.query.lat}&lon=${request.query.lon}&key=${process.env.WEATHER_API_KEY}&days=5&lang=en`
   );
   const cityData = weatherResp.data;
   if (cityData) {
-    const forcasts = cityData.data.map((day) => new Forcast(day));
-    response.send(forcasts);
+    const forecasts = cityData.data.map((day) => new Forecast(day));
+    response.status(200).send(forecasts);
   } else if (cityData.lat !== request.query.lat || cityData.lon !== request.query.lon) {
-    response.status('404').send('No weather for this location');
+    response.status(404).send('No weather for this location');
   } else {
-    response.status('500').send('internal server error');
+    response.status(500).send('internal server error');
+  }
+});
+
+app.get('/movies', async (request, response) => {
+  const moviesResp = await axios.get(
+    `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${request.query.searchQuery}`
+  );
+  const movieData = moviesResp.data;
+  if (movieData) {
+    const movies = movieData.results.map((movie) => new Movie(movie));
+    response.status(200).send(movies);
+  } else if (movieData.title === null) {
+    response.status(404).send('No weather for this location');
+  } else {
+    response.status(500).send('internal server error');
   }
 });
 
@@ -36,9 +48,20 @@ app.get('*', (request, response) => {
 
 app.listen(PORT, () => console.log(`Listening to PORT: ${PORT}`));
 
-class Forcast {
+class Forecast {
   constructor(day) {
     this.date = day.datetime;
     this.description = `Low of ${day.low_temp}, high of ${day.high_temp} with ${day.weather.description}`;
+  }
+}
+
+class Movie {
+  constructor(movie) {
+    this.title = movie.title;
+    this.overview = movie.overview;
+    // this.averageVotes = movie.average_votes;
+    // this.totalVotes = movie.total_votes;
+    this.popularity = movie.popularity;
+    this.releasedOn = movie.released_on;
   }
 }
