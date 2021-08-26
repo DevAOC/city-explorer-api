@@ -63,3 +63,17 @@ Start time: 7:30 pm
 Finish time: 9:15 pm
 
 Actual time needed to complete: 1 hour 45 mins
+
+## Lab 09
+
+### Time Estimates
+
+Name of feature: Lab 9
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 2:45 pm
+
+Finish time: 4 pm
+
+Actual time needed to complete: 1 hour 15 mins
