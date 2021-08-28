@@ -1,22 +1,26 @@
 const axios = require('axios');
+const cache = require('./cache');
 
 const weather = async (request, response) => {
-  try {
-    console.log('QUERY', request.query);
-    const weatherResp = await axios.get(
-      `http://api.weatherbit.io/v2.0/forecast/daily/?lat=${request.query.lat}&lon=${request.query.lon}&key=${process.env.WEATHER_API_KEY}&days=5&lang=en`
-    );
-    const cityData = weatherResp.data;
-    if (cityData) {
-      const forecasts = cityData.data.map((day) => new Forecast(day));
-      response.status(200).send(forecasts);
-    } else if (cityData.lat !== request.query.lat || cityData.lon !== request.query.lon) {
-      response.status(404).send('No weather for this location');
-    } else {
-      response.status(500).send('internal server error');
+  const key = request.query.searchQuery + ' Forcast';
+
+  if (cache[key] && (Date.now() - cache[key].timestamp) / 3600000 < 6) {
+    console.log('HITTTTTT');
+    response.send(cache[key].data);
+  } else {
+    try {
+      console.log('MISSSSSS');
+      const weatherResp = await axios.get(
+        `http://api.weatherbit.io/v2.0/forecast/daily/?lat=${request.query.lat}&lon=${request.query.lon}&key=${process.env.WEATHER_API_KEY}&days=5&lang=en`
+      );
+      cache[key] = {};
+      cache[key].data = weatherResp.data.data.map((day) => new Forecast(day));
+      cache[key].timestamp = Date.now();
+      response.status(200).send(cache[key].data);
+    } catch (err) {
+      console.log(err);
+      response.status(500).send(err);
     }
-  } catch (err) {
-    console.log(err);
   }
 };
 

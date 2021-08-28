@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const PORT = process.env.PORT || 3001;
 require('dotenv').config();
 
 const weather = require('./weather');
@@ -7,8 +8,6 @@ const movies = require('./movies');
 
 const app = express();
 app.use(cors());
-
-const PORT = process.env.PORT || 3001;
 
 app.get('/weather', weather);
 app.get('/movies', movies);
